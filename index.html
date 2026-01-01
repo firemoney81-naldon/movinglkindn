@@ -1,23 +1,660 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- JSON-LD Structured Data for Service -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "일반이사 서비스",
+      "provider": {
+        "@type": "Organization",
+        "name": "일반이사 견적 비교센터",
+        "url": "https://yourdomain.com",
+        "logo": "https://yourdomain.com/logo.png"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "대한민국"
+      },
+      "description": "고객 맞춤형 일반이사, 반포장이사, 포장이사 견적 비교 및 예약 서비스",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "일반이사 견적 서비스 종류",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "일반이사"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "300000",
+              "priceCurrency": "KRW",
+              "description": "고객이 직접 포장하고 운반만 대행하는 경제적인 이사 서비스"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "반포장이사"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "400000",
+              "priceCurrency": "KRW",
+              "description": "포장 대행 후 고객이 정리하는 합리적인 이사 서비스"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "@id": "https://yourdomain.com/full_packing_moving_service",
+              "name": "포장이사"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "price": "500000",
+              "priceCurrency": "KRW",
+              "description": "모든 과정을 업체에 맡기는 편리한 이사 서비스"
+            }
+          }
+        ]
+      },
+      "url": "https://yourdomain.com"
+    }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+        /* Reset and Base Styles */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            background-color: #f7f9fc; /* Soft, light background */
+            color: #333;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: #2c3e50; /* Deep blue/charcoal for professionalism */
+            color: white;
+            padding: 4rem 1.5rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        h1 + p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-top: 0.8rem;
+        }
+        nav {
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1.5rem;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content Area */
+        main {
+            max-width: 1000px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+        section {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+            border-left: 5px solid #2ecc71; /* Accent color */
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-top: 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-top: 1.5rem;
+            border-left: 4px solid #2ecc71;
+            padding-left: 1rem;
+        }
+        p, ul, ol, dl {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Keyword Tags (Related Searches) */
+        .keyword-tags {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .keyword-tags a {
+            background-color: #e8f5e9; /* Light green for related terms */
+            color: #2c3e50;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+        }
+        .keyword-tags a:hover {
+            background-color: #d1e7d2;
+        }
+
+        /* Tables and Data Presentation */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 1.2rem;
+            text-align: left;
+            font-size: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .price-highlight {
+            font-weight: 700;
+            color: #e74c3c; /* Red highlight for cost */
+            font-size: 1.2rem;
+        }
+        .advantage-list {
+            list-style: none;
+            padding: 0;
+        }
+        .advantage-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .advantage-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+            color: #2ecc71;
+            font-weight: 700;
+        }
+
+        /* Interactive Elements (Form) */
+        .contact-form {
+            background-color: #fcfcfc;
+            border-radius: 12px;
+            padding: 2.5rem;
+            border: 1px solid #ddd;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+            width: calc(100% - 2rem);
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input:focus, textarea:focus {
+            border-color: #2ecc71;
+            outline: none;
+            box-shadow: 0 0 5px rgba(46, 204, 113, 0.3);
+        }
+        .submit-button {
+            display: block;
+            width: 100%;
+            background-color: #e74c3c; /* Red accent for CTA */
+            color: white;
+            font-weight: 700;
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .submit-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* FAQ Accordion */
+        dl dt {
+            background-color: #f7f9fc;
+            padding: 1rem 1.5rem;
+            margin-top: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            border: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+        dl dt:hover {
+            background-color: #eff2f6;
+        }
+        dl dd {
+            padding: 1rem 1.5rem;
+            margin: 0;
+            background-color: white;
+            border-left: 3px solid #e74c3c;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease-in-out;
+        }
+        dl dt.active + dd {
+            max-height: 500px; /* Adjust as needed for content length */
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            font-size: 0.9rem;
+            color: #888;
+            background-color: #e9ecef;
+            margin-top: 3rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            main {
+                padding: 0 1rem;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            nav a {
+                width: 80%;
+                margin: auto;
+                text-align: center;
+            }
+            section {
+                padding: 1.5rem;
+            }
+            th, td {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            .keyword-tags {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>일반이사견적, 투명하게 비교하고 결정하세요</h1>
+        <p>포장/반포장/일반 이사 유형별 비용 분석 및 합리적인 견적 노하우 공개</p>
+        <nav>
+            <ul>
+                <li><a href="#definition">일반이사란?</a></li>
+                <li><a href="#cost_structure">비용 분석</a></li>
+                <li><a href="#area">서비스 지역</a></li>
+                <li><a href="#checklist">이사 체크리스트</a></li>
+                <li><a href="#contact">견적 신청</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="definition">
+            <h2>일반이사견적: 합리적인 이사 비용의 시작점</h2>
+            <p><strong>일반이사견적</strong>은 포장이사나 반포장이사와 달리, 고객님께서 직접 모든 이사짐의 포장과 정리를 담당하고, 이사업체는 운송 및 상하차 작업만을 제공하는 가장 경제적인 이사 방식입니다. 주로 짐이 많지 않은 1인 가구, 원룸 거주자, 또는 비용 절감을 최우선으로 생각하는 고객님들이 선택합니다.</p>
+
+            <h3>일반이사, 포장이사, 반포장이사 비교</h3>
+            <p>고객님의 이사 환경과 예산에 따라 최적의 서비스를 선택할 수 있도록 세 가지 이사 형태를 명확하게 비교해 드립니다. 일반이사는 인건비가 절약되는 만큼 준비 과정에서 고객의 노력이 필요합니다.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>일반이사</th>
+                        <th>반포장이사</th>
+                        <th>포장이사</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>포장 (출발지)</strong></td>
+                        <td>고객 직접 포장</td>
+                        <td>업체(큰 짐), 고객(잔 짐)</td>
+                        <td>업체 전문가 포장</td>
+                    </tr>
+                    <tr>
+                        <td><strong>운반 및 상하차</strong></td>
+                        <td>업체 전문가 진행</td>
+                        <td>업체 전문가 진행</td>
+                        <td>업체 전문가 진행</td>
+                    </tr>
+                    <tr>
+                        <td><strong>정리 및 배치 (도착지)</strong></td>
+                        <td>고객 직접 정리</td>
+                        <td>고객 직접 정리</td>
+                        <td>업체 전문가 정리/배치</td>
+                    </tr>
+                    <tr>
+                        <td><strong>가격대</strong></td>
+                        <td>가장 저렴</td>
+                        <td>중간 가격대</td>
+                        <td>가장 비쌈</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>2026년 이사 트렌드에 따르면, 1인 가구 증가와 함께 일반이사 수요가 꾸준히 증가하고 있습니다. 특히, 짐이 적거나 스스로 포장/정리가 가능한 고객에게 일반이사는 가장 합리적인 선택이 될 수 있습니다. <strong>일반이사견적</strong>을 알아보실 때는 단순히 가격만 비교하지 마시고, 운반 인력의 숙련도와 보험 가입 여부도 함께 확인해야 합니다.</p>
+
+            <div class="keyword-tags" aria-label="일반이사 관련 자동완성 검색어">
+                <a href="#cost_structure">일반이사비용</a>
+                <a href="#cost_structure">일반이사견적비교</a>
+                <a href="#checklist">이사짐센터견적</a>
+                <a href="#cost_structure">원룸 일반이사 비용</a>
+                <a href="#service">용달이사 가격</a>
+                <a href="#area">소형이사 전국</a>
+            </div>
+        </section>
+
+        <section id="cost_structure">
+            <h2>일반이사견적 비용 산출의 핵심 요소 분석</h2>
+            <p><strong>일반이사견적</strong>은 여러 변수에 따라 유동적입니다. 이사 당일 추가 비용 발생을 막기 위해서는 견적 상담 시 아래 요소들을 명확하게 전달해야 합니다. 저희는 투명한 견적 시스템을 통해 고객님께 예측 가능한 비용을 제시해 드립니다.</p>
+
+            <h3>1. 짐의 양 (이사 화물의 부피와 무게)</h3>
+            <p>일반이사견적에서 가장 큰 비중을 차지하는 것은 운반할 짐의 양입니다. 짐의 양에 따라 필요한 차량의 톤수가 결정됩니다. 1톤 트럭으로 충분한지, 2.5톤 트럭이 필요한지에 따라 기본 요금이 달라집니다. 특히, 가전제품(냉장고, 세탁기)이나 가구(침대, 장롱) 등 부피가 큰 짐이 많을 경우 톤수가 상향될 수 있습니다. <strong>2.5톤 일반이사견적</strong>은 1톤 견적보다 인력 배치와 차량 크기 때문에 기본 비용이 상승합니다.</p>
+
+            <h3>2. 이사 형태 및 인원</h3>
+            <p>일반이사는 고객이 포장/정리를 담당하지만, 운반 및 상하차 시 작업 인원이 필요합니다. 견적은 '차량+운전기사(1인)' 기준이 기본이며, 짐이 많거나 계단 작업이 필요한 경우 '2인 이상' 작업 인원이 추가될 수 있습니다. 인원이 추가되면 당연히 인건비가 상승합니다. <strong>용달 일반이사견적</strong>의 경우 1인 작업으로 진행되는 경우가 많으며, 고객이 상하차를 돕는 조건으로 비용을 절감하기도 합니다.</p>
+
+            <h3>3. 이사 거리 및 환경 (사다리차 사용 여부)</h3>
+            <p>출발지와 도착지 간의 거리가 멀수록 유류비, 고속도로 통행료, 이동 시간이 증가하여 견적이 올라갑니다. 또한, 이사 환경에 따라 추가 비용이 발생합니다. 예를 들어, 엘리베이터가 없는 층(고층 빌라)에서 이사를 하거나, 짐을 운반할 통로가 좁은 경우 사다리차 사용이 필수적입니다. 사다리차 사용료는 이사견적에 별도로 추가됩니다. <strong>일반이사견적</strong>을 받을 때 사다리차 사용이 필요한지 미리 확인해야 정확한 비용을 알 수 있습니다.</p>
+
+            <h3>4. 이사 날짜 및 시기</h3>
+            <p>이사 수요가 집중되는 시기에는 견적이 상승합니다. 특히 <strong>손 없는 날</strong>(음력 9, 10, 19, 20, 29, 30일)은 이사 수요가 폭증하는 날로, 일반이사견적도 평일보다 10%~30% 가량 높게 책정될 수 있습니다. 2026년 이사 예정이라면, 손 없는 날을 피하여 주중에 이사 일정을 잡는 것이 비용을 절약할 수 있는 좋은 방법입니다. 또한, 3~5월 봄 이사철이나 10~11월 가을 이사철에는 전반적인 이사 비용이 상승하는 경향이 있습니다.</p>
+
+            <div class="keyword-tags" aria-label="일반이사 비용 절감 키워드">
+                <a href="#cost_structure">일반이사 추가비용</a>
+                <a href="#cost_structure">용달비용</a>
+                <a href="#checklist">이사짐정리</a>
+                <a href="#cost_structure">이사 성수기 비수기</a>
+                <a href="#cost_structure">사다리차 비용</a>
+            </div>
+        </section>
+
+        <section id="area">
+            <h2>전국 일반이사 서비스 지역 및 견적 비교 (2026년 기준)</h2>
+            <p>저희는 전국을 아우르는 네트워크를 통해 어디서든 신속하고 정확한 <strong>일반이사견적</strong>을 제공합니다. 특히 인구 밀집도가 높은 수도권과 광역시를 중심으로 꼼꼼한 서비스가 가능합니다. 2026년 이사 서비스는 전국적으로 물류 효율화가 진행되어 더욱 빠르고 정확해지고 있습니다. 아래는 주요 서비스 가능 지역 목록입니다.</p>
+
+            <h3>서울 및 수도권 주요 지역</h3>
+            <p>서울의 경우 이사 동선이 복잡하고 주차가 어려운 경우가 많아 일반이사견적 산출 시 변수가 많습니다. 강남구, 서초구, 송파구 등 강남 3구와 강동구, 성동구, 광진구 등 주요 주거 지역에서의 일반이사 경험이 풍부합니다. 경기도에서는 수원시, 고양시, 용인시, 성남시, 부천시, 안산시, 남양주시, 화성시, 평택시 등 인구 100만 이상 도시부터 의정부시, 김포시, 광명시, 하남시 등 소형 이사 수요가 많은 지역까지 서비스합니다. 인천광역시의 계양구, 연수구, 부평구 등도 주요 서비스 지역입니다.</p>
+
+            <h3>지방 광역시 및 기타 주요 도시</h3>
+            <p>지방에서도 정확한 <strong>일반이사견적</strong>을 받아보실 수 있습니다. 부산광역시 (해운대구, 수영구, 남구, 부산진구), 대구광역시 (수성구, 달서구, 북구), 광주광역시 (광산구, 서구, 북구), 대전광역시 (유성구, 서구), 울산광역시 (남구, 북구) 등 5대 광역시는 물론이고, 세종특별자치시, 강원도 원주시, 충청남도 천안시, 전라북도 전주시, 경상남도 창원시, 경상북도 포항시 등 주요 지방 거점 도시에서도 일반이사 서비스를 제공하고 있습니다. 제주도 이사도 전문가가 진행합니다.</p>
+
+            <div class="keyword-tags" aria-label="전국 이사 서비스 가능 지역 (30개 이상)">
+                <a href="#">서울 일반이사</a>
+                <a href="#">인천 일반이사</a>
+                <a href="#">경기 일반이사</a>
+                <a href="#">부산 일반이사</a>
+                <a href="#">대구 일반이사</a>
+                <a href="#">광주 일반이사</a>
+                <a href="#">대전 일반이사</a>
+                <a href="#">울산 일반이사</a>
+                <a href="#">세종 일반이사</a>
+                <a href="#">수원 일반이사</a>
+                <a href="#">용인 일반이사</a>
+                <a href="#">성남 일반이사</a>
+                <a href="#">부천 일반이사</a>
+                <a href="#">안산 일반이사</a>
+                <a href="#">화성 일반이사</a>
+                <a href="#">평택 일반이사</a>
+                <a href="#">남양주 일반이사</a>
+                <a href="#">김포 일반이사</a>
+                <a href="#">하남 일반이사</a>
+                <a href="#">천안 일반이사</a>
+                <a href="#">청주 일반이사</a>
+                <a href="#">전주 일반이사</a>
+                <a href="#">익산 일반이사</a>
+                <a href="#">군산 일반이사</a>
+                <a href="#">목포 일반이사</a>
+                <a href="#">순천 일반이사</a>
+                <a href="#">포항 일반이사</a>
+                <a href="#">창원 일반이사</a>
+                <a href="#">김해 일반이사</a>
+                <a href="#">양산 일반이사</a>
+                <a href="#">경주 일반이사</a>
+                <a href="#">구미 일반이사</a>
+                <a href="#">원주 일반이사</a>
+                <a href="#">춘천 일반이사</a>
+                <a href="#">강릉 일반이사</a>
+                <a href="#">제주 일반이사</a>
+            </div>
+        </section>
+
+        <section id="checklist">
+            <h2>일반이사견적을 위한 완벽한 준비: 체크리스트 (2026년 업데이트)</h2>
+            <p>일반이사는 고객님이 직접 포장해야 하므로 철저한 준비가 필요합니다. 다음 체크리스트를 활용하여 이사 준비를 효율적으로 진행해 보세요. 준비가 잘 되어있을수록 이사 당일 작업이 신속하게 진행되어 만족스러운 <strong>일반이사견적</strong>을 실현할 수 있습니다.</p>
+
+            <h3>이사 2주 전: 불필요한 짐 정리 및 포장 준비</h3>
+            <ol class="advantage-list">
+                <li><strong>버릴 짐 분류 및 폐기물 처리:</strong> 이사 비용은 짐의 양에 비례합니다. 이사 2주 전부터 불필요한 옷, 가구, 가전제품 등을 미리 정리하고 대형 폐기물 스티커를 구입하여 버립니다.</li>
+                <li><strong>포장재 준비:</strong> 일반이사의 핵심은 고객 포장입니다. 박스, 에어캡(뽁뽁이), 테이프, 매직펜 등을 미리 충분히 준비합니다.</li>
+                <li><strong>중요 서류 및 귀중품 별도 보관:</strong> 계약서, 신분증, 통장, 인감 등 중요 서류와 고가품은 고객님이 직접 보관합니다.</li>
+                <li><strong>이사 업체 선정:</strong> 최소 3곳 이상의 이사업체에 <strong>일반이사견적</strong>을 받아보고, 서비스 내용과 보험 가입 여부를 확인하여 결정합니다.</li>
+            </ol>
+
+            <h3>이사 1주 전: 실질적인 포장 작업 시작</h3>
+            <ol class="advantage-list">
+                <li><strong>잔짐 포장 시작:</strong> 자주 사용하지 않는 물건(철 지난 옷, 책, 주방용품 등)부터 포장을 시작합니다. 박스 겉면에 내용물을 상세히 기재하여 도착지에서 정리할 때 혼동이 없도록 합니다.</li>
+                <li><strong>주소 변경 및 공과금 정산:</strong> 우체국 주소 이전 서비스 신청, 전기, 수도, 가스 요금 정산 및 도시가스 차단 예약을 합니다.</li>
+                <li><strong>관리사무소 통보:</strong> 이사 전후 엘리베이터 사용 가능 시간, 이사 작업 시간 등을 관리사무소에 미리 알립니다.</li>
+            </ol>
+
+            <h3>이사 당일: 마무리 및 최종 점검</h3>
+            <ol class="advantage-list">
+                <li><strong>포장 완료:</strong> 이사 업체 도착 전 모든 포장 작업을 마무리합니다.</li>
+                <li><strong>가스/전기 차단 확인:</strong> 가스레인지 등 연결된 가전제품의 차단 여부를 최종 확인합니다.</li>
+                <li><strong>도착지 안내:</strong> 짐이 도착할 새로운 집에서 운반된 짐이 놓일 위치를 미리 정해두면 작업 시간을 단축할 수 있습니다.</li>
+            </ol>
+
+            <div class="keyword-tags" aria-label="일반이사 준비 키워드">
+                <a href="#checklist">이사짐 포장법</a>
+                <a href="#checklist">이사 체크리스트</a>
+                <a href="#checklist">폐기물 처리 방법</a>
+                <a href="#checklist">이사 박스 준비</a>
+                <a href="#checklist">이사 당일 준비물</a>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            <p><strong>일반이사견적</strong> 관련 고객님들이 궁금해하시는 주요 질문들을 모아 답변해 드립니다.</p>
+            <dl>
+                <dt tabindex="0" aria-expanded="false">Q1. 일반이사견적을 받으려면 어떤 정보를 알려줘야 하나요?</dt>
+                <dd>정확한 견적을 위해 출발지와 도착지의 주소(동/호수), 이사 날짜, 짐의 양(가구, 가전제품 종류 및 개수), 이사 환경(엘리베이터 유무, 계단 수)를 구체적으로 알려주셔야 합니다. 짐의 양은 1톤, 2.5톤 등 톤수 기준으로 미리 계산해보는 것이 좋습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q2. 일반이사 중 짐이 파손되거나 분실되면 보상은 어떻게 되나요?</dt>
+                <dd>저희는 화물자동차 운수사업법에 따른 적재물 배상책임보험에 가입되어 있습니다. 이사 작업 중 발생하는 파손 및 분실에 대해 규정에 따라 보상받으실 수 있습니다. 다만, 일반이사는 고객이 직접 포장한 짐에 대해서는 보상이 어렵습니다. 포장 상태가 불량하여 발생한 파손은 고객의 책임입니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false">Q3. 짐이 적은 원룸 이사도 일반이사로 가능한가요?</dt>
+                <dd>네, 원룸 이사는 일반이사견적에 가장 적합한 형태입니다. 짐의 양이 적고, 포장이 비교적 간단하며, 비용 절감 효과가 크기 때문입니다. 짐의 양에 따라 1톤 트럭이나 2.5톤 트럭을 선택하여 진행할 수 있습니다. 원룸 이사의 경우 <strong>용달 일반이사견적</strong>이 가장 일반적입니다.</dd>
+                
+                <dt tabindex="0" aria-expanded="false">Q4. 이사 성수기와 비수기 시기 차이는 얼마나 되나요?</dt>
+                <dd>성수기는 보통 3~5월과 9~11월, 그리고 '손 없는 날'입니다. 이 기간에는 이사 수요가 많아 견적이 20~30% 가량 상승할 수 있습니다. 반면, 1~2월 겨울이나 장마철은 비수기로 분류되어 상대적으로 저렴한 <strong>일반이사견적</strong>을 받을 수 있습니다. 2026년 이사 계획 시 이러한 시기적 요소를 고려하여 일정을 잡으면 비용을 절약할 수 있습니다.</dd>
+            </dl>
+        </section>
+
+        <section id="external-links">
+            <h2>공신력 있는 이사 정보 및 관련 정책 (2026년)</h2>
+            <p><strong>일반이사견적</strong>을 포함한 이사 서비스 전반에 대한 신뢰성 있는 정보를 확인하여 안전한 이사를 준비하세요. 다음은 공정거래위원회 및 정부 기관에서 제공하는 자료입니다.</p>
+            <ul>
+                <li><a href="https://www.ftc.go.kr/www/cpw/service/selectBusi.do?key=670&busiType=08" target="_blank">이사화물 표준약관 (공정거래위원회)</a></li>
+                <li><a href="https://namu.wiki/w/%EC%9D%B4%EC%82%AC" target="_blank">이사 관련 정보 (나무위키)</a></li>
+                <li><a href="https://www.molit.go.kr/CP_user/etc/index.jsp" target="_blank">이사 관련 법규 및 정책 (국토교통부)</a></li>
+                <li><a href="https://www.kca.go.kr/main.do" target="_blank">소비자 피해 구제 정보 (한국소비자원)</a></li>
+                <li><a href="https://easymoving.co.kr/" target="_blank">주소지 변경 원스톱 서비스 (이사로)</a></li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>일반이사견적 무료 상담 신청</h2>
+            <p>지금 바로 문의하시면 2026년 최신 기준으로 <strong>일반이사견적</strong>을 투명하게 산출해 드립니다. 짐의 양이 적거나, 비용 절감을 원하시는 고객님께 최적의 솔루션을 제공합니다.</p>
+
+            <form action="https://yourdomain.com/submit_estimate_form" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">성함</label>
+                    <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">연락처</label>
+                    <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required>
+                </div>
+                <div class="form-group">
+                    <label for="movingType">희망 이사 종류</label>
+                    <select id="movingType" name="movingType" required>
+                        <option value="">-- 선택해주세요 --</option>
+                        <option value="일반이사">일반이사</option>
+                        <option value="반포장이사">반포장이사</option>
+                        <option value="포장이사">포장이사</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="startAddress">출발지 주소 (이사 나가는 곳)</label>
+                    <input type="text" id="startAddress" name="startAddress" placeholder="예: 서울특별시 강남구 역삼동" required>
+                </div>
+                <div class="form-group">
+                    <label for="endAddress">도착지 주소 (이사 들어가는 곳)</label>
+                    <input type="text" id="endAddress" name="endAddress" placeholder="예: 경기도 성남시 분당구 정자동" required>
+                </div>
+                <div class="form-group">
+                    <label for="movingDate">이사 희망 날짜</label>
+                    <input type="text" id="movingDate" name="movingDate" placeholder="예: 2026년 5월 15일">
+                </div>
+                <div class="form-group">
+                    <label for="luggageDetails">이사짐 상세 내용 (필수)</label>
+                    <textarea id="luggageDetails" name="luggageDetails" rows="5" placeholder="가구 종류 및 개수 (침대, 장롱 등), 가전 종류 (냉장고, 세탁기 등), 짐의 양 (박스 수 예상)을 자세히 기재해주세요."></textarea>
+                </div>
+                <button type="submit" class="submit-button">견적 문의 신청하기</button>
+            </form>
+        </section>
     </main>
-  </body>
-</html>
+
+    <footer>
+        <p>Copyright &copy; 2025 일반이사 견적 비교센터. All rights reserved.</p>
+        <p>사업자등록번호: 000-00-00000 | 대표: 홍길동 | 주소: 서울특별시 강남구 테헤란로</p>
+    </footer>
+
+    <script>
+        // FAQ 아코디언 기능
+        document.querySelectorAll('dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const dd = dt.nextElementSibling;
+                const isActive = dt.classList.contains('active');
+
+                // Close all other expanded items
+                document.querySelectorAll('dl dt.active').forEach(item => {
+                    item.classList.remove('active');
+                    item.setAttribute('aria-expanded', 'false');
+                    item.nextElementSibling.style.maxHeight = '0';
+                });
+
+                // Open current item if it was closed
+                if (!isActive) {
+                    dt.classList.add('active');
+                    dt.setAttribute('aria-expanded', 'true');
+                    dd.style.maxHeight = dd.scrollHeight + 'px';
+                }
+            });
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+
+        // Simple form validation for a more engaging user experience
+        const form = document.querySelector('.contact-form');
+        form.addEventListener('submit', function(e) {
+            const phoneInput = document.getElementById('phone');
+            const phoneRegex = /^010-\d{3,4}-\d{4}$/; // Basic phone format validation
+
+            if (!phoneRegex.test(phoneInput.value)) {
+                alert("연락처를 '010-XXXX-XXXX' 형식으로 정확하게 입력해주세요.");
+                e.preventDefault();
+            }
+        });
+    </script>
+
+
+  
